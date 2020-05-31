@@ -41,8 +41,6 @@
       metadata:
         name: "{{ meta.name }}"
         namespace: "{{ meta.namespace }}"
-        # annotations:
-        #   dhkey.xenit.io/key_size: "{{ key_size }}"
       data:
         dhKey: "{{ dhKey }}"
   no_log: "{{ show_logs }}"
