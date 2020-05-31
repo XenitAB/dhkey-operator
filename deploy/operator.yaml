@@ -16,8 +16,7 @@ spec:
       serviceAccountName: dhkey-operator
       containers:
         - name: dhkey-operator
-          # Replace this with the built image name
-          image: "REPLACE_IMAGE"
+          image: "quay.io/xenitab/dhkey-operator:v0.0.1-alpha2"
           imagePullPolicy: "Always"
           volumeMounts:
           - mountPath: /tmp/ansible-operator/runner
