@@ -67,7 +67,7 @@ rules:
   verbs:
   - get
 - apiGroups:
-  - dhkey.xenit.io
+  - xenit.io
   resources:
   - '*'
   verbs:

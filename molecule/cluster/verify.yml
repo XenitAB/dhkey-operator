@@ -8,10 +8,10 @@
     - community.kubernetes
 
   vars:
-    custom_resource: "{{ lookup('template', '/'.join([deploy_dir, 'crds/dhkey.xenit.io_v1alpha1_dhkey_cr.yaml'])) | from_yaml }}"
+    custom_resource: "{{ lookup('template', '/'.join([deploy_dir, 'crds/xenit.io_v1alpha1_dhkey_cr.yaml'])) | from_yaml }}"
 
   tasks:
-    - name: Create the dhkey.xenit.io/v1alpha1.DHKey and wait for reconciliation to complete
+    - name: Create the xenit.io/v1alpha1.DHKey and wait for reconciliation to complete
       k8s:
         state: present
         namespace: '{{ namespace }}'

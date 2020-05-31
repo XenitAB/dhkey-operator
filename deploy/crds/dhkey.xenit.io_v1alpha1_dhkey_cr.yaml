@@ -1,6 +1,0 @@
-apiVersion: dhkey.xenit.io/v1alpha1
-kind: DHKey
-metadata:
-  name: example-cr
-spec:
-  key_size: 4096

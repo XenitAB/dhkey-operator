@@ -1,42 +1,48 @@
 ---
 # tasks file for dhkey
+- name: Set variable to show Ansible logs or not
+  set_fact:
+    show_logs: false
+    
 - name: Get dh key if it already exists
   community.kubernetes.k8s_info:
     api_version: v1
     kind: Secret
-    namespace: '{{ meta.namespace }}'
-    label_selectors:
-      - name = '{{ meta.name }}-dhkey'
-      - type = dhkey
+    namespace: "{{ meta.namespace }}"
+    name: "{{ meta.name }}"
   register: dhSecret
+  no_log: "{{ show_logs }}"
 
 - name: Set facts if it already exists
   set_fact:
-    dhKey: dhSecret.resources[0].data.dhKey
+    dhKey: "{{ dhSecret.resources[0].data.dhKey }}"
   when: dhSecret.resources != []
+  no_log: "{{ show_logs }}"
 
 - name: Generate DHKey if not exists
   openssl_dhparam:
     path: "/tmp/{{ meta.name }}-dhkey.pem"
     size: '{{ key_size }}'
   when: dhSecret.resources == []
+  no_log: "{{ show_logs }}"
 
 - name: Set facts if it was created
   set_fact:
     dhKey: "{{lookup('file', '/tmp/{{ meta.name }}-dhkey.pem') | b64encode }}"
-  when: dhSecret.resources != []
+  when: dhSecret.resources == []
+  no_log: "{{ show_logs }}"
 
-- name: Create k8s secret for cpx-ingress
+- name: Create dh key secret
   community.kubernetes.k8s:
     definition:
       apiVersion: v1
       kind: Secret
       type: Opaque
       metadata:
-        name: '{{ meta.name }}-dhkey'
-        labels:
-          name: '{{ meta.name }}-dhkey'
-          type: dhkey
-          namespace: '{{ meta.namespace }}'
+        name: "{{ meta.name }}"
+        namespace: "{{ meta.namespace }}"
+        # annotations:
+        #   dhkey.xenit.io/key_size: "{{ key_size }}"
       data:
         dhKey: "{{ dhKey }}"
+  no_log: "{{ show_logs }}"
