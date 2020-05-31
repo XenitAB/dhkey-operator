@@ -13,7 +13,7 @@
 - name: Generate DHKey if not exists
   openssl_dhparam:
     path: "/tmp/{{ meta.name }}-dhkey.pem"
-    size: '{{ keySize }}'
+    size: '{{ keysize }}'
   when: dhSecret.resources == []
 
 - name: Create k8s secret for cpx-ingress
