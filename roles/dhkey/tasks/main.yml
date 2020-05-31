@@ -1,14 +1,19 @@
 ---
 # tasks file for dhkey
-- name: Get DHKey if already exists
-  k8s_info:
+- name: Get dh key if it already exists
+  community.kubernetes.k8s_info:
     api_version: v1
     kind: Secret
-    namespace: "{{ meta.namespace }}"
+    namespace: '{{ meta.namespace }}'
     label_selectors:
-      - name = "{{ meta.name }}-dhkey"
+      - name = '{{ meta.name }}-dhkey'
       - type = dhkey
   register: dhSecret
+
+- name: Set facts if it already exists
+  set_fact:
+    dhKey: dhSecret.resources[0].data.dhKey
+  when: dhSecret.resources != []
 
 - name: Generate DHKey if not exists
   openssl_dhparam:
@@ -16,18 +21,22 @@
     size: '{{ key_size }}'
   when: dhSecret.resources == []
 
+- name: Set facts if it was created
+  set_fact:
+    dhKey: "{{lookup('file', '/tmp/{{ meta.name }}-dhkey.pem') | b64encode }}"
+  when: dhSecret.resources != []
+
 - name: Create k8s secret for cpx-ingress
-  k8s:
-    namespace: "{{ meta.namespace }}"
+  community.kubernetes.k8s:
     definition:
       apiVersion: v1
       kind: Secret
       type: Opaque
       metadata:
-        name: "{{ meta.name }}-dhkey"
+        name: '{{ meta.name }}-dhkey'
         labels:
-          name: "{{ meta.name }}-dhkey"
+          name: '{{ meta.name }}-dhkey'
           type: dhkey
+          namespace: '{{ meta.namespace }}'
       data:
-        dhKey: "{{lookup('file', '/tmp/{{ meta.name }}-dhkey.pem') | b64encode }}"
-  when: dhSecret.resources == []
+        dhKey: "{{ dhKey }}"
