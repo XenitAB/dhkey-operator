@@ -1,3 +1,3 @@
 ---
 # defaults file for dhkey
-keysize = 4096
+key_size: 4096
