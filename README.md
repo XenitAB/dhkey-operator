@@ -31,13 +31,26 @@ kubectl delete -f deploy/crds/xenit.io_dhkeys_crd.yaml
 kubectl delete -f deploy/crds/xenit.io_v1alpha1_dhkey_cr.yaml
 ```
 
-## Deploying
+## Deploying in cluster
+
+### Install
 
 ```shell
 kubectl apply -f deploy/crds/xenit.io_dhkeys_crd.yaml
 kubectl create ns dhkey-operator
-kubectl apply -f deploy/service_account.yaml
-kubectl apply -f deploy/role.yaml
-kubectl apply -f deploy/role_binding.yaml
-kubectl apply -f deploy/operator.yaml
+kubectl -n dhkey-operator apply -f deploy/service_account.yaml
+kubectl -n dhkey-operator apply -f deploy/role.yaml
+kubectl -n dhkey-operator apply -f deploy/role_binding.yaml
+kubectl -n dhkey-operator apply -f deploy/operator.yaml
+```
+
+## Uninstall
+
+```shell
+kubectl -n dhkey-operator delete -f deploy/service_account.yaml
+kubectl -n dhkey-operator delete -f deploy/role.yaml
+kubectl -n dhkey-operator delete -f deploy/role_binding.yaml
+kubectl -n dhkey-operator delete -f deploy/operator.yaml
+kubectl delete ns dhkey-operator
+kubectl delete -f deploy/crds/xenit.io_dhkeys_crd.yaml
 ```
