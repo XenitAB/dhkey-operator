@@ -3,4 +3,4 @@ kind: DHKey
 metadata:
   name: example-cr
 spec:
-  key_size: 2048
+  keySize: 2048
