@@ -41,11 +41,18 @@ kubectl delete -f deploy/crds/xenit.io_v1alpha1_dhkey_cr.yaml
 
 ### Helm
 
+#### Helm Repo
+
+```
+helm repo add dhkey-operator https://xenitab.github.io/dhkey-operator/
+helm repo update
+```
+
 #### Helm install (cluster scoped)
 
 ```
 kubectl create namespace dhkey-operator
-helm upgrade --namespace dhkey-operator --install dhkey-operator charts/dhkey-operator
+helm upgrade --namespace dhkey-operator --version 0.0.4 --install dhkey-operator dhkey-operator/dhkey-operator
 kubectl apply -f deploy/crds/xenit.io_v1alpha1_dhkey_cr.yaml
 ```
 
@@ -53,7 +60,7 @@ kubectl apply -f deploy/crds/xenit.io_v1alpha1_dhkey_cr.yaml
 
 ```
 kubectl create namespace dhkey-operator
-helm upgrade --namespace dhkey-operator --install dhkey-operator --set operator.clusterScoped=false charts/dhkey-operator
+helm upgrade --namespace dhkey-operator --version 0.0.4 --install dhkey-operator --set operator.clusterScoped=false dhkey-operator/dhkey-operator
 kubectl --namespace dhkey-operator apply -f deploy/crds/xenit.io_v1alpha1_dhkey_cr.yaml
 ```
 
