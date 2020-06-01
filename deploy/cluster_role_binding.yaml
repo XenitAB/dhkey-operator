@@ -3,9 +3,9 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: dhkey-operator
 subjects:
-- kind: ServiceAccount
-  name: dhkey-operator
-  namespace: dhkey-operator
+  - kind: ServiceAccount
+    name: dhkey-operator
+    namespace: dhkey-operator
 roleRef:
   kind: ClusterRole
   name: dhkey-operator

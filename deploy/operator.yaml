@@ -19,8 +19,8 @@ spec:
           image: "quay.io/xenitab/dhkey-operator:v0.0.1"
           imagePullPolicy: "IfNotPresent"
           volumeMounts:
-          - mountPath: /tmp/ansible-operator/runner
-            name: runner
+            - mountPath: /tmp/ansible-operator/runner
+              name: runner
           env:
             - name: WATCH_NAMESPACE
               value: ""
