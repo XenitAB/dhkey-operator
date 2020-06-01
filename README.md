@@ -4,6 +4,12 @@ Operator to handle dh (diffie hellman) keys in Kubernetes clusters.
 
 ## Running locally
 
+### Installing operator-sdk cli
+
+```shell
+brew install operator-sdk
+```
+
 ### Prepare python environment
 
 ```shell
