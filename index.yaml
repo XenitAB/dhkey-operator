@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  dhkey-operator:
+  - apiVersion: v2
+    appVersion: 0.0.2
+    created: "2020-06-01T06:47:23.583595Z"
+    description: A Helm chart for dhkey-operator to be used in Kubernetes
+    digest: d60e53959e4f42f1601d16dfff1bf5299eb22877c758460c2389138cdc844dd2
+    name: dhkey-operator
+    type: application
+    urls:
+    - https://XenitAB.github.io/dhkey-operator/dhkey-operator-0.0.2.tgz
+    version: 0.0.2
+generated: "2020-06-01T06:47:23.582698291Z"
