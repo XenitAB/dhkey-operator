@@ -39,7 +39,35 @@ kubectl delete -f deploy/crds/xenit.io_v1alpha1_dhkey_cr.yaml
 
 ## Deploying in cluster
 
-### Install
+### Helm
+
+#### Helm install (cluster scoped)
+
+```
+kubectl create namespace dhkey-operator
+helm upgrade --namespace dhkey-operator --install dhkey-operator charts/dhkey-operator
+kubectl apply -f deploy/crds/xenit.io_v1alpha1_dhkey_cr.yaml
+```
+
+#### Helm install (namespace scoped)
+
+```
+kubectl create namespace dhkey-operator
+helm upgrade --namespace dhkey-operator --install dhkey-operator --set operator.clusterScoped=false charts/dhkey-operator
+kubectl --namespace dhkey-operator apply -f deploy/crds/xenit.io_v1alpha1_dhkey_cr.yaml
+```
+
+#### Helm uninstall
+
+```
+helm uninstall --namespace dhkey-operator dhkey-operator
+kubectl delete CustomResourceDefinition dhkeys.xenit.io
+kubectl delete namespace dhkey-operator
+```
+
+### Manifests
+
+#### Install manifests (cluster scoped)
 
 ```shell
 kubectl apply -f deploy/crds/xenit.io_dhkeys_crd.yaml
@@ -50,7 +78,7 @@ kubectl -n dhkey-operator apply -f deploy/cluster_role_binding.yaml
 kubectl -n dhkey-operator apply -f deploy/operator.yaml
 ```
 
-## Uninstall
+#### Uninstall manifests (cluster scoped)
 
 ```shell
 kubectl -n dhkey-operator delete -f deploy/service_account.yaml
