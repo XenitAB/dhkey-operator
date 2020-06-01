@@ -1,5 +1,0 @@
----
-- version: v1alpha1
-  group: xenit.io
-  kind: DHKey
-  role: dhkey

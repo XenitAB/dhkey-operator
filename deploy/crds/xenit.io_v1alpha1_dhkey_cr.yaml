@@ -1,7 +1,0 @@
-apiVersion: xenit.io/v1alpha1
-kind: DHKey
-metadata:
-  name: example-dhkey
-spec:
-  # Add fields here
-  key_size: 4096
