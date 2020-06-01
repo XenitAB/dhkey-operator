@@ -6,10 +6,10 @@ operator:
   clusterScoped: true
 
 image:
-  repository: quay.io/xenitab/dhkey-operator
+  repository: docker.pkg.github.com/xenitab/dhkey-operator/dhkey-operator
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: v0.0.2
+  tag: v0.0.3
 
 imagePullSecrets: []
 nameOverride: ""

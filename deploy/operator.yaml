@@ -16,7 +16,7 @@ spec:
       serviceAccountName: dhkey-operator
       containers:
         - name: dhkey-operator
-          image: "quay.io/xenitab/dhkey-operator:v0.0.2"
+          image: "docker.pkg.github.com/xenitab/dhkey-operator/dhkey-operator:v0.0.3"
           imagePullPolicy: "IfNotPresent"
           volumeMounts:
             - mountPath: /tmp/ansible-operator/runner
